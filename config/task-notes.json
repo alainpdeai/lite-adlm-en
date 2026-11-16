@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "kind": "task-note-spec",
+  "description": "Task note specification (single source of truth). Defines a structured note skeleton across all task lists: Scenario / Fixed Input / Conclusion / Boundary / Executable Answer / Test Archive / Correction. General principle: all engineering steps must leave traceable records in ADLM.",
+  "field": "item.comment (string). Rich text editor may produce HTML <p>...</p>; plain text paragraphs are equally valid.",
+  "segments": {
+    "required": [
+      { "tag": "[Scenario]", "purpose": "Why this task exists and what fact it establishes; boundaries must be obvious at a glance." },
+      { "tag": "[Conclusion / Verdict]", "purpose": "Quantified verdict with numbers and qualifiers; no narrative GREEN statements without verifiable evidence." },
+      { "tag": "[Evidence]", "purpose": "Reproducible commands / script paths / path:line / hashes / raw server responses." },
+      { "tag": "[File Anchors]", "purpose": "Primary anchor file + related file list, aligned with config/file-anchors.json." }
+    ],
+    "recommended": [
+      { "tag": "[Fixed Input]", "purpose": "Inputs, preconditions, and environments needed to reproduce the verdict; avoid guesswork." },
+      { "tag": "[Boundaries]", "purpose": "What is out of scope, known divergences, differences between spec and implementation." },
+      { "tag": "[Executable Answer]", "purpose": "One-line reproduction command and exit code semantics." },
+      { "tag": "[Test Archive YYYY-MM-DD HH:mm]", "purpose": "Append a timestamped paragraph for each test run; never mutate or delete older logs." },
+      { "tag": "[Correction YYYY-MM-DD HH:mm]", "purpose": "Append when prior conclusions are overturned, stating why the old verdict is obsolete; never rewrite history silently." }
+    ]
+  },
+  "commentPolicy": {
+    "appendOnly": true,
+    "appendOnlyNote": "Corrections and new test archives are always appended as standalone paragraphs without rewriting existing text; corrections must state why earlier verdicts became obsolete."
+  },
+  "examTruth": {
+    "requiredKeys": ["truth_source", "tolerance", "truth_hash"],
+    "requiredKeysNote": "Strict three-in-one check gate; these three keys should be documented in the comment field of exam items.",
+    "truthPolicy": "Official specification text + SHA-256 deliverable checksum",
+    "truthPolicyNote": "Defined against the project's primary risk (silent spec/deliverable drift); override in config/site.json project.truthPolicy.",
+    "separation": "exam stores truth / tolerances / hashes only; test stores comparison logic and execution; test uses compares-to to reference exam. Never redefine truth constants in test code."
+  },
+  "audit": {
+    "systemFields": ["statusHistory", "createdBy", "createdByAgent", "createdAt", "closedBy", "closedAt"],
+    "systemFieldsNote": "Populated by the server on state transitions; can be omitted in manually created seeds. statusHistory is bounded by lib/status.js STATUS_HISTORY_LIMIT — persistent audit trails rely on docs/records/ snapshots.",
+    "snapshot": "npm run snapshot records point-in-time snapshots of data/shared_lists/ and data/archive/ into docs/records/, which is intentionally tracked in version control."
+  }
+}

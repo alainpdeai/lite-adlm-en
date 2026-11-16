@@ -1,0 +1,24 @@
+#!/bin/sh
+# Continuous Integration P1 — local pre-commit gate.
+#
+# Installed as .git/hooks/pre-commit in both repositories; this file is the
+# source of truth, so edit here and re-run install_precommit_hook.py.
+#
+# Runs the fast grading subset (~19s). A failure blocks the commit.
+# Skip explicitly, and with a recorded reason:
+#     LITETASK_SKIP_GRADES=1 LITETASK_SKIP_REASON="why" git commit ...
+# The flag without a reason is refused, and every skip is logged to
+# .git/litetask-grade-skip.log.
+
+# Resolve the gate from the checkout root, not from the hook directory: the
+# installer only places `pre-commit` in .git/hooks/, so `$(dirname "$0")` alone
+# would look for a file that is never copied there. Derived from the hook's own
+# path (<repo>/.git/hooks/pre-commit) so it does not depend on cwd or on git
+# being able to answer --show-toplevel. LITETASK_GATE still overrides explicitly.
+GATE="${LITETASK_GATE:-$(cd "$(dirname "$0")/../.." && pwd)/scripts/precommit_grades.py}"
+PY="${LITETASK_PYTHON:-python}"
+
+if [ -x "$PY" ]; then
+    exec "$PY" "$GATE"
+fi
+exec python "$GATE"

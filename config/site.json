@@ -1,0 +1,19 @@
+{
+  "projectName": "Lite ADLM",
+  "subtitle": "Shared Task Tree",
+  "loginSubtitle": "Team Shared Workspace",
+  "logPrefix": "ADLM",
+  "goal": "An AI-assisted project management system: turning development progress and unexpected tasks into a structured memory during development, displayed intuitively on a live web board while preserving traceable history.",
+  "admin": {
+    "userId": "user_admin",
+    "username": "admin",
+    "password": "admin"
+  },
+  "port": 3000,
+
+  "project": {
+    "domain": "",
+    "root": "",
+    "truthPolicy": "Official specification text + SHA-256 deliverable checksum"
+  }
+}

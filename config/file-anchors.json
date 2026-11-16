@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "kind": "file-anchor-registry",
+  "initialized": false,
+  "generatedAt": null,
+  "clock": "System clock (Node Date, UTC ISO-8601); does not use session-injected timestamps",
+  "projectRoot": "",
+  "exclude": ["node_modules", ".git", "backup", "logs", "dist", "build", "__pycache__"],
+  "maxAnchors": 200,
+  "maxAnchorsNote": "Registration ceiling during initialization scan to prevent dependencies/artifacts from flooding registry; unrelated to runtime paths",
+  "anchors": [],
+  "anchorSchema": {
+    "path": "Relative path to projectRoot (prevents machine-locked absolute paths)",
+    "sha256": "SHA-256 hash of file content to detect archive drift",
+    "bytes": "File size in bytes",
+    "mtime": "Filesystem modification time (UTC ISO-8601)",
+    "l2": "Suggested L2 subdomain id, must exist in config/taxonomy.json"
+  },
+  "mapping": {
+    "primary": "item.localDirectory = primary anchor (single, always the first item)",
+    "extra": "item.localDirectories = additional linked files / URLs",
+    "extraLimit": 20,
+    "extraLimitNote": "lib/schema.js:43 sanitizeLocalDirectories slices extra to 20; up to 21 total paths with primary. Hard system limit",
+    "softCheck": "Paths serve as traceability hints; no strict check requiring identical file and task names"
+  },
+  "rules": [
+    "Primary anchor must be the single file that best reproduces the task verdict (test script / spec / deliverable), not an arbitrary related file.",
+    "Related files should follow evidence chain order; update sha256 and append a [Correction] note when files change, never replace silently.",
+    "Paths should preferably be relative to projectRoot; absolute paths are strictly for local troubleshooting and should not enter version control.",
+    "Every task should register at least one primary anchor; if no file exists, note 'No file anchor; evidence is command output' in [File Anchors]."
+  ]
+}

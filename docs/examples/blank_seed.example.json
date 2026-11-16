@@ -1,0 +1,199 @@
+{
+  "_comment": "ADLM neutral structure example (contains no real project names, proprietary domains, or task data). Each top-level lists[] element corresponds to a list file under data/shared_lists/<listId>.json. Runtime fields like createdAt/rev/updatedAt are populated automatically by the server. This example demonstrates structural patterns: namespace suffixes, subTasks nesting, cross-list relatesTo links, exam truth triplets, and file anchors. Placeholders in angle brackets indicate where project values belong.",
+  "lists": [
+    {
+      "listId": "arch",
+      "listName": "Architecture & Design",
+      "category": "architecture",
+      "owner": "user_admin",
+      "createdAt": "",
+      "items": [
+        {
+          "itemId": "task_arch_100",
+          "title": "<Module Name> Boundary Definition & Data Contract [arch:core-arch]",
+          "isDone": false,
+          "status": "open",
+          "statusHistory": [],
+          "blockedReason": "",
+          "dueDate": "",
+          "priority": "High",
+          "assignedTo": "",
+          "createdBy": "",
+          "createdByAgent": "",
+          "createdById": "",
+          "createdAt": "",
+          "closedBy": null,
+          "closedById": null,
+          "closedAt": null,
+          "localDirectory": "docs/<architecture_spec.md>",
+          "localDirectories": [],
+          "comment": "<p>[Scenario] State which boundary or contract this architecture task fixes.</p><p>[Conclusion / Verdict] Quantified verdict + qualifiers.</p><p>[Evidence] Reproducible command / path / hash.</p><p>[File Anchors] Primary anchor and related file list.</p>",
+          "subTasks": [],
+          "relatesTo": [
+            { "listId": "func", "itemId": "task_func_200", "relation": "derives-from" }
+          ]
+        }
+      ],
+      "rev": 1,
+      "updatedAt": "",
+      "updatedBy": "user_admin"
+    },
+    {
+      "listId": "func",
+      "listName": "Core Features",
+      "category": "function",
+      "owner": "user_admin",
+      "createdAt": "",
+      "items": [
+        {
+          "itemId": "task_func_200",
+          "title": "<Module Name>: Main Workflow Implementation [func:feature]",
+          "isDone": false,
+          "status": "open",
+          "statusHistory": [],
+          "blockedReason": "",
+          "dueDate": "",
+          "priority": "Medium",
+          "assignedTo": "",
+          "createdBy": "",
+          "createdByAgent": "",
+          "createdById": "",
+          "createdAt": "",
+          "closedBy": null,
+          "closedById": null,
+          "closedAt": null,
+          "localDirectory": "src/<main_entry.js>",
+          "localDirectories": ["src/<helper.js>"],
+          "comment": "<p>[Scenario] Task boundaries of the parent module.</p><p>[Conclusion / Verdict] Quantified verdict + qualifiers.</p><p>[Evidence] Reproducible command / path / hash.</p><p>[File Anchors] Primary anchor and related file list.</p>",
+          "subTasks": [
+            {
+              "itemId": "task_func_201",
+              "title": "<Sub-feature Name> Implementation [func:feature:<component_id>]",
+              "isDone": false,
+              "status": "open",
+              "localDirectory": "src/<submodule.js>",
+              "localDirectories": [],
+              "comment": "<p>[Scenario] Subtask boundaries.</p><p>[Conclusion / Verdict] Quantified verdict + qualifiers.</p><p>[Evidence] Reproducible command / path / hash.</p><p>[File Anchors] Primary anchor and related file list.</p>",
+              "subTasks": [],
+              "relatesTo": []
+            }
+          ],
+          "relatesTo": [
+            { "listId": "arch", "itemId": "task_arch_100", "relation": "related" }
+          ]
+        }
+      ],
+      "rev": 1,
+      "updatedAt": "",
+      "updatedBy": "user_admin"
+    },
+    {
+      "listId": "test",
+      "listName": "Testing & QA",
+      "category": "test",
+      "owner": "user_admin",
+      "createdAt": "",
+      "items": [
+        {
+          "itemId": "task_test_300",
+          "title": "<Main Workflow> Acceptance & Regression [test:acceptance]",
+          "isDone": false,
+          "status": "open",
+          "statusHistory": [],
+          "blockedReason": "",
+          "dueDate": "",
+          "priority": "Medium",
+          "assignedTo": "",
+          "createdBy": "",
+          "createdByAgent": "",
+          "createdById": "",
+          "createdAt": "",
+          "closedBy": null,
+          "closedById": null,
+          "closedAt": null,
+          "localDirectory": "tests/<test_acceptance.py>",
+          "localDirectories": [],
+          "comment": "<p>[Scenario] What this verification run confirms.</p><p>[Conclusion / Verdict] Quantified verdict + qualifiers.</p><p>[Evidence] Command output / exit code / raw server text.</p><p>[File Anchors] Primary anchor and related file list.</p><p>Note: Never redefine truth constants here; truths reside solely in exam list.</p>",
+          "subTasks": [],
+          "relatesTo": [
+            { "listId": "func", "itemId": "task_func_200", "relation": "verifies" },
+            { "listId": "exam", "itemId": "task_exam_400", "relation": "compares-to" }
+          ]
+        }
+      ],
+      "rev": 1,
+      "updatedAt": "",
+      "updatedBy": "user_admin"
+    },
+    {
+      "listId": "exam",
+      "listName": "Benchmarks & Acceptance",
+      "category": "exam",
+      "owner": "user_admin",
+      "createdAt": "",
+      "items": [
+        {
+          "itemId": "task_exam_400",
+          "title": "<Standard Scenario Name> Baseline [exam:scenario]",
+          "isDone": false,
+          "status": "open",
+          "statusHistory": [],
+          "blockedReason": "",
+          "dueDate": "",
+          "priority": "High",
+          "assignedTo": "",
+          "createdBy": "",
+          "createdByAgent": "",
+          "createdById": "",
+          "createdAt": "",
+          "closedBy": null,
+          "closedById": null,
+          "closedAt": null,
+          "localDirectory": "docs/records/<baseline_evidence.md>",
+          "localDirectories": [],
+          "comment": "<p>[Scenario] What fact this standard benchmark scenario establishes.</p><p>[Conclusion / Verdict] Quantified verdict + qualifiers.</p><p>[Evidence] Specification text / baseline file path.</p><p>[File Anchors] Primary anchor and related file list.</p><br/>truth_source: &lt;official_spec_or_evidence_path&gt;<br/>tolerance: &lt;numerical_tolerance&gt;<br/>truth_hash: sha256:&lt;original_evidence_sha256&gt;",
+          "subTasks": [],
+          "relatesTo": []
+        }
+      ],
+      "rev": 1,
+      "updatedAt": "",
+      "updatedBy": "user_admin"
+    },
+    {
+      "listId": "bug",
+      "listName": "Bug Tracking",
+      "category": "bug",
+      "owner": "user_admin",
+      "createdAt": "",
+      "items": [
+        {
+          "itemId": "task_bug_500",
+          "title": "<Issue Name> Root Cause & Fix [bug:defect]",
+          "isDone": false,
+          "status": "open",
+          "statusHistory": [],
+          "blockedReason": "",
+          "dueDate": "",
+          "priority": "Medium",
+          "assignedTo": "",
+          "createdBy": "",
+          "createdByAgent": "",
+          "createdById": "",
+          "createdAt": "",
+          "closedBy": null,
+          "closedById": null,
+          "closedAt": null,
+          "localDirectory": "src/<affected_file.js>",
+          "localDirectories": [],
+          "comment": "<p>[Scenario] Bug symptom and reproduction conditions.</p><p>[Conclusion / Verdict] Root cause determination + qualifiers.</p><p>[Evidence] Reproduction command / log snippet / path:line.</p><p>[File Anchors] Primary anchor and related file list.</p><p>Bug items are permitted without relatesTo (orphan items are valid).</p>",
+          "subTasks": [],
+          "relatesTo": []
+        }
+      ],
+      "rev": 1,
+      "updatedAt": "",
+      "updatedBy": "user_admin"
+    }
+  ]
+}

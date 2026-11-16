@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "description": "Five standard task categories (four software engineering stages + Bug tracking). server.js automatically pre-provisions corresponding shared lists upon startup if missing.",
+  "categories": [
+    {
+      "listId": "arch",
+      "type": "architecture",
+      "name": "Architecture & Design",
+      "color": "#7c3aed",
+      "description": "System architecture design, module boundaries, technology selection, and interface contracts."
+    },
+    {
+      "listId": "func",
+      "type": "function",
+      "name": "Core Features",
+      "color": "#2563eb",
+      "description": "Business feature implementations, API endpoints, and module coding tasks (can derive from architecture)."
+    },
+    {
+      "listId": "test",
+      "type": "test",
+      "name": "Testing & QA",
+      "color": "#059669",
+      "description": "Unit tests, integration tests, regression tests, and verification tasks."
+    },
+    {
+      "listId": "exam",
+      "type": "exam",
+      "name": "Benchmarks & Acceptance",
+      "color": "#d97706",
+      "description": "Reusable test benchmarks, acceptance criteria, and golden test scenarios with standard inputs/outputs."
+    },
+    {
+      "listId": "bug",
+      "type": "bug",
+      "name": "Bug Tracking",
+      "color": "#dc2626",
+      "description": "Defects, runtime exceptions, regressions, and optimization opportunities discovered during development."
+    }
+  ],
+  "relations": [
+    { "value": "related", "label": "Related" },
+    { "value": "derives-from", "label": "Derives from (Feature <- Arch)" },
+    { "value": "verifies", "label": "Verifies (Test -> Feature)" },
+    { "value": "depends-on", "label": "Depends on" },
+    { "value": "blocks", "label": "Blocks" }
+  ],
+  "statuses": [
+    { "value": "open", "label": "Open", "color": "#64748b", "closed": false },
+    { "value": "in-progress", "label": "In Progress", "color": "#2563eb", "closed": false },
+    { "value": "blocked", "label": "Blocked", "color": "#e11d48", "closed": false },
+    { "value": "verified", "label": "Verified", "color": "#7c3aed", "closed": false },
+    { "value": "done", "label": "Done", "color": "#059669", "closed": true }
+  ],
+  "traceability": [
+    {
+      "value": "func-not-verified",
+      "label": "Feature not verified by test",
+      "owner": "func",
+      "referrer": "test",
+      "relation": "verifies",
+      "hint": "Tasks in owner list not yet referenced by referrer list via this relation (test coverage gap)"
+    },
+    {
+      "value": "arch-not-derived",
+      "label": "Architecture task without derived feature",
+      "owner": "arch",
+      "referrer": "func",
+      "relation": "derives-from",
+      "hint": "No feature tasks declared as deriving from this architecture task (implementation gap)"
+    },
+    {
+      "value": "orphan",
+      "label": "Orphan item without links",
+      "owner": "*",
+      "hint": "Tasks that neither reference nor are referenced by other tasks"
+    }
+  ],
+  "archive": {
+    "minClosed": 25,
+    "warnWithin": 5,
+    "protected": ["arch", "func", "test", "exam", "bug"],
+    "description": "A1 auto-archive policy. Startup sweep moves lists with closed top-level items >= minClosed to data/archive/<listId>.json; protected lists are never auto-archived."
+  },
+  "statusFlow": {
+    "open": ["in-progress", "blocked", "done"],
+    "in-progress": ["open", "blocked", "verified", "done"],
+    "blocked": ["open", "in-progress", "done"],
+    "verified": ["in-progress", "blocked", "done"],
+    "done": ["open", "in-progress", "blocked", "verified"]
+  }
+}

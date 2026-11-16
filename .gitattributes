@@ -1,0 +1,20 @@
+# Unified line endings: all text files in repo are LF (Windows checkout does not alter).
+# tests/grade_eol_guard.py performs binary CRLF/BOM check on all tracked files,
+# solidifying rules into contract to avoid giant diffs from whole-file line ending changes.
+* text=auto eol=lf
+
+# Binary assets without line ending conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.pdf binary
+*.xlsx binary
+*.docx binary
+*.pptx binary

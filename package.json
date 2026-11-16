@@ -1,0 +1,29 @@
+{
+  "name": "lite-adlm",
+  "version": "1.0.0",
+  "description": "Lite ADLM - Lightweight Web Task Manager & Structured Memory for AI Agents (Standalone Deployable System)",
+  "main": "server.js",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "init": "node scripts/init.js",
+    "pack": "python scripts/package_delivery.py",
+    "validate": "node scripts/validate_init.js",
+    "snapshot": "node scripts/snapshot.js",
+    "test": "python tests/run_grade_checks.py",
+    "test:fast": "python tests/run_grade_checks.py --fast"
+  },
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "express": "^5.3.0",
+    "fs-extra": "^11.4.1",
+    "socket.io": "^4.8.4"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "puppeteer-core": "^25.16.0"
+  }
+}

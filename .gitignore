@@ -1,0 +1,59 @@
+# ============================================================
+# Lite ADLM / LiteTask Skill delivery repository ignore list
+# Principle: Only track "deployable system + governance assets + quality gates"; runtime and
+#       Agent workspaces are never committed (submission requirement: clean, reproducible).
+# ============================================================
+
+# ---- Dependencies and build caches ----
+node_modules/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# ---- Runtime data (bootstrapped on first run, see README data & deployment) ----
+# Exception: data/categories.json is category seed; data/.gitkeep preserves dir structure
+data/*
+!data/categories.json
+!data/.gitkeep
+
+# ---- Runtime artifacts ----
+backup/
+tests/_artifacts/
+logs/
+*.log
+*.tmp
+*.bak
+
+# ---- Agent / Host workspaces (not deliverables of this project) ----
+.office-claw/
+.codeartsdoer/
+agents/
+coding_memory/
+memory/
+messages/
+context/
+todo/
+
+# ---- Editor and OS noise ----
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+
+# ---- Local override configuration (if present) ----
+.env
+.env.local
+# Agent run history
+.agent_history/
+
+# Soft-delete archive (retired files archived on same volume, recoverable, untracked)
+.archive/
+
+# Agent workspace placeholder files
+.workspace
+
+# Soft-deleted package build swap artifacts (generated during rebuild, not committed)
+dist/skill/*.old-*/
